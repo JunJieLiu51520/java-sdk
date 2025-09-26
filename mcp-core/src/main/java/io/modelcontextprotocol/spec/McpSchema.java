@@ -143,6 +143,11 @@ public final class McpSchema {
 		 */
 		public static final int INTERNAL_ERROR = -32603;
 
+		/**
+		 * Resource not found.
+		 */
+		public static final int RESOURCE_NOT_FOUND = -32002;
+
 	}
 
 	public sealed interface Request
@@ -648,7 +653,13 @@ public final class McpSchema {
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	public record Annotations( // @formatter:off
 		@JsonProperty("audience") List<Role> audience,
-		@JsonProperty("priority") Double priority) { // @formatter:on
+		@JsonProperty("priority") Double priority,
+		@JsonProperty("lastModified") String lastModified
+		) { // @formatter:on
+
+		public Annotations(List<Role> audience, Double priority) {
+			this(audience, priority, null);
+		}
 	}
 
 	/**
